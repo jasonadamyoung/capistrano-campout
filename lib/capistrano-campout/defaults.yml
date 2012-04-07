@@ -1,0 +1,6 @@
+pre_deploy:
+    message: "<%= campout_deployer %> is starting to deploy <%= application %> to <%= stage %>"
+post_deploy_success:
+    message: "<%= campout_deployer %> deployed <%= application %> to <%= stage %>"
+post_deploy_failure:
+    message: "The deploy of <%= application %> to <%= stage %> by <%= campout_deployer %> has failed."

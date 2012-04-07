@@ -20,3 +20,14 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Additional Copyrights
+=====================
+
+This code also contains code from the following people:
+ 
+ rails_config : Copyright (c) 2010 Jacques Crocker
+ deep_merge : Copyright (c) 2008 Steve Midgley, now mainted by Daniel DeLeo
+ eycap : Copyright (c) 2008-2011 Engine Yard
+ capfire : Copyright (c) 2010 Piet Jaspers 10to1
+ capistrano-mountaintop : Copyright (c) 2010 Joshua Nichols.
