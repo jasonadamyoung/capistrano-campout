@@ -11,7 +11,7 @@ post-deployment success or failure. Event sounds are also supported.
 
 ## Design goals
 
-Capistrano::Campout is insipred by and borrows concepts (and in some cases code) 
+Capistrano::Campout is inspired by and borrows concepts (and in some cases code) 
 from two projects: [capistrano-mountaintop](https://github.com/technicalpickles/capistrano-mountaintop) and [capfire](https://github.com/pjaspers/capfire). 
 
 I created my own instead of forking either for the following reasons
