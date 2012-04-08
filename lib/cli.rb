@@ -85,7 +85,7 @@ module Campout
       end  
       campfire_settings = {'campfire' => {'domain' => 'domain', 'room' => 'room', 'token' => 'token'}}
       campfire_settings['campfire']['domain'] = ask("Your campfire domain:")
-      campfire_settings['campfire']['room'] = ask("Your campfire room ID:")
+      campfire_settings['campfire']['room'] = ask("Your campfire room ID:").to_i
       campfire_settings['campfire']['token'] = ask("Your campfire api token:")
         
       copy_configs
