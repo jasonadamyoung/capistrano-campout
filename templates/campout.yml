@@ -1,0 +1,105 @@
+#### config/campout.yml
+## User this file for shared campout settings for the project. It's 
+## recommended that you add this file to your SCM.
+##
+## personal overrides or other settings can be placed 
+## within a config/campout.local.yml file.  If your SCM repository 
+## is open it's strongly recommended that your campfire settings 
+## into the local configuration file, particularly the campfire API token
+##
+### campfire settings
+## 
+## The campfire configuration settings should be added as
+## a yaml hash keyed to "campfire" e.g.
+##
+## campfire:
+##     domain: 'your_campfire_domain'
+##     room: your_room_id
+##     token: your_campfire_token
+##
+## The following campfire settings are required
+##
+## domain:
+##   The "subdomain" for your campfire site
+##   e.g. for https://yourdomain.campfirenow.com/ it will be "yourdomain"
+## room:
+##   The id of the room you want to post messages to. Click on the campfire 
+##   room that you want and get the id from the URL. 
+##  e.g. for https://yourdomain.campfirenow.com/room/123456
+##   the room id is 123456
+## token:
+##   The API authentication token for your account. You can get your token
+##   by clicking "My Info" in the top right of the campfirewnow site - or
+##   going directly to https://yourdomain.campfirenow.com/member/edit
+##
+## The following campfire settings are optional
+## 
+## ssl:
+##   If false, specifies that Tinder should not use an SSL connection
+## ssl_verify:
+##   If false, specified that Tinder should not try to verify the SSL
+##   certificate.
+##
+### global action settings
+##
+## copy_log_to_server:
+##   If set to true - the cap deployment log will be copied to a "deploy_logs"
+##   subdirectory of your #{shared_path}. The filename will be in the format:
+##   deploy-#{release_name}-#{successful? ? "success" : "failure"}.log
+## default:
+# copy_log_to_server: false
+##
+## suppress_sounds:
+##   If set to true, will supress the playing sounds specified in the "play"
+##   settings for the pre_deploy, post_deploy_success, and 
+##   post_deploy_failure sections
+##   default:
+# suppress_sounds: false
+##
+## suppress_deploy_time:
+##   If set to true, will supress the output of the benchmark timing for the
+##   deployment.
+## default:
+# suppress_deploy_time: false
+##
+## suppress_github_compare:
+##   Campout will attempt to display a github url (if the capistrano
+##   repository is a github repository) that will show the comparison
+##   of previous_revision with latest_revision (as determined by 
+##   capistrano)
+## default:
+# suppress_github_compare: false
+
+### deployment settings
+##
+## There are three deployment hashes with the following keys: 
+##   pre_deploy: settings applied before the capistrano deploy action
+##   post_deploy_success: settings applied after a successful capistrano deploy action  
+##   post_deploy_failure: settings applied after a failed capistrano deploy action  
+##
+## Each hash can include the following settings
+##   message: 
+##     The message to post to the specified campfire room. The message can include
+##     ERB - and all of the capistrano variables are available - with the addition
+##     of "campout_deployer" - which attempts to use the git user.name setting and
+##     falls back to ENV['USER'] and "whereto" - which attempts to use the stage
+##     and falls back to ENV['SERVER'] or 'production'
+##   play:
+##     specifies a campfire sound to play when the message is posted.
+##
+## defaults:
+# pre_deploy:
+#     message: "<%= campout_deployer %> is starting to deploy <%= application %> to <%= whereto %>"
+# post_deploy_success:
+#     message: "<%= campout_deployer %> deployed <%= application %> to <%= whereto %>"
+# post_deploy_failure:
+#     message: "The deploy of <%= application %> to <%= whereto %> by <%= campout_deployer %> has failed."
+##
+## recommended sounds:
+# pre_deploy:
+#     play: "pushit"
+# post_deploy_success:
+#     play: "yeah"
+# post_deploy_failure:
+#     play: "drama"
+ 

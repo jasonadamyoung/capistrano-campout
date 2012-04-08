@@ -2,8 +2,6 @@
 # Copyright (c) 2012 Jason Adam Young
 # === LICENSE:
 # see LICENSE file
-
-
 module Capistrano
   module Campout    
     class TemplateError < NameError

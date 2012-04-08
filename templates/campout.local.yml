@@ -1,0 +1,10 @@
+#### config/campout.local.yml
+## User this file for local/private campout settings for the project. This 
+## file should be excluded from your SCM.
+##
+## If your SCM repository is open it's strongly recommended that
+## your campfire settings into this local configuration file
+## particularly the campfire API token
+##
+## shared settings can be placed within a config/campout.yml file.  
+## see config/campout.yml for the settings 
