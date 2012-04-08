@@ -36,16 +36,24 @@ Or install it yourself as:
 
     $ gem install capistrano-campout
 
-## Usage
+## Setup
 
-Add a:
+You can generate a configuration by running
+
+    campout generate_config
+
+This will prompt you for your campfire configuration settings and create config/campout.yml and config/campout.local.yml files for you, adding config/campout.local.yml to your .gitignore file (if present) and adding a require 'capistrano-campout' to your config/deploy.rb file.
+
+## Manual Setup
+
+Alternatively add a:
 
 	require "capistrano-campout"  
 
 to your capistrano deploy.rb and create a config/campout.yml and/or a config/campout.local.yml with your campfire settings (required)
 
 	campfire:
-	    domain: 'your_campfire_domain'
+	    domain: your_campfire_domain
 	    room: room_id_to_post_to
 	    token: your_campfire_api_token
 
@@ -53,9 +61,11 @@ to your capistrano deploy.rb and create a config/campout.yml and/or a config/cam
 
 "config/campout.local.yml" is meant as a local/private configuration file - I'd recommend adding the file to the .gitignore
 
-## Additional Settings
+## Settings
 
-I'll write those up one day. Until that day, use the source, Luke.
+Run the 'campout generate_config' command - and the config/campout.yml file will have a list of all the known settings.
+
+Otherwise, use the source, Luke.
 
 ## Known Limitations
 
@@ -63,7 +73,7 @@ I'll write those up one day. Until that day, use the source, Luke.
 
 Capistrano::Campout requires [Tinder](https://github.com/collectiveidea/tinder) - which requires [ActiveSupport](https://github.com/rails/rails/tree/master/activesupport)
 
-Apparently, Capistrano's "deploy:cleanup" task breaks due to conflicts between Capistrano and ActiveSupport
+Apparently, Capistrano's "deploy:cleanup" task breaks in some situations due to conflicts between Capistrano and ActiveSupport
 
 See:
 
