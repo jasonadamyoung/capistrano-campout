@@ -13,10 +13,12 @@ Capistrano::Configuration.instance(:must_exist).load do
     
     ## no descriptions for the following tasks - meant to be hooked by capistrano
     task :pre_announce do
+      set(:whereto,campout_core.whereto(self))
       campout_core.pre_announce(binding: binding)
     end
     
     task :post_announce_success do
+      set(:whereto,campout_core.whereto(self))
       campout_core.post_announce_success(binding: binding, 
                                          repository: repository, 
                                          previous_revision: previous_revision, 
@@ -24,6 +26,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     end
     
     task :post_announce_failure do
+      set(:whereto,campout_core.whereto(self))
       campout_core.post_announce_failure(binding: binding)
     end
     
@@ -37,6 +40,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     
     desc "Display campfire messages and actions based on current configuration"
     task :will_do do
+      set(:whereto,campout_core.whereto(self))
       campout_core.will_do(binding: binding)
     end
     

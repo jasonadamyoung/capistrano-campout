@@ -2,8 +2,13 @@
 # Copyright (c) 2012 Jason Adam Young
 # === LICENSE:
 # see LICENSE file
+
+
 module Capistrano
-  module Campout
+  module Campout    
+    class TemplateError < NameError
+    end
+
     class Core
       attr_accessor :settings, :campfire, :room
     
@@ -64,7 +69,7 @@ module Capistrano
       end
       
       def pre_announce(options = {})
-        self.speak(ERB.new(settings.pre_deploy.message).result(options[:binding]))
+        self.speak(erberize(settings.pre_deploy.message,'pre_deploy message',options[:binding]))
         if(!settings.suppress_sounds and settings.pre_deploy.play)
           self.play(settings.pre_deploy.play)
         end
@@ -72,7 +77,7 @@ module Capistrano
       end
       
       def post_announce_success(options = {})
-        message = ERB.new(settings.post_deploy_success.message).result(options[:binding])
+        message = erberize(settings.post_deploy_success.message,'post_deploy_success message',options[:binding])
         if(!settings.suppress_deploy_time and @pre_announce_time)
           message += " (#{time_period_to_s(Time.now - @pre_announce_time)})"
         end
@@ -112,7 +117,7 @@ module Capistrano
       end
       
       def post_announce_failure(options = {})
-        message = ERB.new(settings.post_deploy_failure.message).result(options[:binding])        
+        message = erberize(settings.post_deploy_failure.message,'post_deploy_failure message',options[:binding])        
         self.speak(message)
         if(!settings.suppress_sounds and settings.post_deploy_failure.play)
           self.play(settings.post_deploy_failure.play)
@@ -133,7 +138,7 @@ module Capistrano
             
       def will_do(options = {})
         puts "Before Deployment:"
-        puts "Message: #{ERB.new(settings.pre_deploy.message).result(options[:binding])}"
+        puts "Message: #{erberize(settings.pre_deploy.message,'pre_deploy message',options[:binding])}"
         if(!settings.suppress_sounds and settings.pre_deploy.play)
           puts "Will play sound: #{settings.pre_deploy.play}"
         else
@@ -142,7 +147,7 @@ module Capistrano
   
         puts "\n"
         puts "After Successful Deployment:"
-        puts "Message: #{ERB.new(settings.post_deploy_success.message).result(options[:binding])}"
+        puts "Message: #{erberize(settings.post_deploy_success.message,'post_deploy_success message',options[:binding])}"
         if(!settings.suppress_sounds and settings.post_deploy_success.play)
           puts "Will play sound: #{settings.post_deploy_success.play}"
         else
@@ -157,7 +162,7 @@ module Capistrano
         
         puts "\n"
         puts "After Failed Deployment:"
-        puts "Message: #{ERB.new(settings.post_deploy_failure.message).result(options[:binding])}"
+        puts "Message: #{erberize(settings.post_deploy_failure.message,'post_deploy_failure message',options[:binding])}"
         if(!settings.suppress_sounds and settings.post_deploy_failure.play)
           puts "Will play sound: #{settings.post_deploy_failure.play}"
         else
@@ -169,6 +174,23 @@ module Capistrano
           puts "Will not paste deployment log"
         end
       end
+      
+      def whereto(capistrano_namespace)
+        default_value =  ENV['SERVER'] || 'production'
+        capistrano_namespace.fetch(:stage,default_value)
+      end
+      
+      protected 
+      
+      
+      def erberize(string,context,binding)
+        begin
+          ERB.new(string).result(binding)
+        rescue NameError => error
+          raise TemplateError, "Your #{context} message references an undefined value: #{error.name}. Set this in your capistrano deploy script"
+        end
+      end
+        
       
       # Takes a period of time in seconds and returns it in human-readable form (down to minutes)
       # code from http://www.postal-code.com/binarycode/2007/04/04/english-friendly-timespan/
