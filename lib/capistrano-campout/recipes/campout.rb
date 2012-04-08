@@ -28,9 +28,11 @@ Capistrano::Configuration.instance(:must_exist).load do
     end
     
     task :copy_log, :except => { :no_release => true} do
-      logger = Capistrano::CampoutLogger
-      run "mkdir -p #{shared_path}/deploy_logs"
-      put File.open(logger.log_file_path).read, "#{shared_path}/deploy_logs/#{logger.remote_log_file_name}"
+      if(campout_core.settings.copy_log_to_server)
+        logger = Capistrano::CampoutLogger
+        run "mkdir -p #{shared_path}/deploy_logs"
+        put File.open(logger.log_file_path).read, "#{shared_path}/deploy_logs/#{logger.remote_log_file_name}"
+      end
     end
     
     desc "Display campfire messages and actions based on current configuration"
