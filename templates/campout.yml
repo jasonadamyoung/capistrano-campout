@@ -35,10 +35,7 @@
 ## The following campfire settings are optional
 ## 
 ## ssl:
-##   If false, specifies that Tinder should not use an SSL connection
-## ssl_verify:
-##   If false, specified that Tinder should not try to verify the SSL
-##   certificate.
+##   If false, specifies that Broach should not use an SSL connection
 ##
 ### global action settings
 ##
