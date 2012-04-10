@@ -26,14 +26,14 @@ end
 
 if Capistrano::Configuration.instance
   Capistrano::Configuration.instance.extend(Capistrano::Campout)
-end
 
-Capistrano::Configuration.instance(:must_exist).load do
-  if(campout_core.settings.valid?)
-    # load the recipes
-    Dir.glob(File.join(File.dirname(__FILE__), '/capistrano-campout/recipes/*.rb')).sort.each { |f| load f }
-    before "deploy", "campout:pre_announce"
-  else
-    logger.info "The campout configuration is not valid. Make sure that the campfire settings are specified in the campout configuration file(s)"
+  Capistrano::Configuration.instance(:must_exist).load do
+    if(campout_core.settings.valid?)
+      # load the recipes
+      Dir.glob(File.join(File.dirname(__FILE__), '/capistrano-campout/recipes/*.rb')).sort.each { |f| load f }
+      before "deploy", "campout:pre_announce"
+    else
+      logger.info "The campout configuration is not valid. Make sure that the campfire settings are specified in the campout configuration file(s)"
+    end
   end
 end
