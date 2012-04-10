@@ -6,7 +6,7 @@ module Capistrano
   module Campout    
     class TemplateError < NameError
     end
-
+    
     class Core
       attr_accessor :settings, :campfire, :room
     
@@ -43,7 +43,7 @@ module Capistrano
       end
       
       def play(sound)
-        room.play(sound)
+        room.sound(sound)
       end
       
       def paste(text)
@@ -54,17 +54,26 @@ module Capistrano
         @campfire ||= connect_to_campfire
       end
       
-      def connect_to_campfire
-        options = {token: settings.campfire.token}
-        if(!settings.campfire.ssl.nil?)
-          options[:ssl] = settings.campfire.ssl
-        end
+      def find_campfire_room(room_id)
+        broach_settings = {
+          'account' => settings.campfire.domain,
+          'token' => settings.campfire.token
+        }
         
-        if(!settings.campfire.ssl_verify.nil?)
-          options[:ssl_verify] = settings.campfire.ssl_verify
+        if(!settings.campfire.ssl.nil?)
+          broach_settings['use_ssl'] = settings.campfire.ssl
+        else
+          broach_settings['use_ssl'] = true
         end
-        Tinder::Campfire.new(settings.campfire.domain,options)
+          
+        Broach.settings = broach_settings
+        Broach::Room.find(room_id)
       end
+      
+      def room
+        @room ||= find_campfire_room(settings.campfire.room)
+      end
+      
       
       def pre_announce(options = {})
         self.speak(erberize(settings.pre_deploy.message,'pre_deploy message',options[:binding]))
@@ -130,9 +139,7 @@ module Capistrano
       end
       
   
-      def room
-        @room ||= campfire.find_room_by_id(settings.campfire.room)
-      end
+
             
       def will_do(options = {})
         puts "Before Deployment:"
@@ -192,11 +199,8 @@ module Capistrano
       
       # Takes a period of time in seconds and returns it in human-readable form (down to minutes)
       # code from http://www.postal-code.com/binarycode/2007/04/04/english-friendly-timespan/
-      def time_period_to_s(time_period,abbreviated=false,defaultstring = '')
+      def time_period_to_s(time_period,abbreviated=false,defaultstring='')
        out_str = ''
-       if(time_period.blank?)
-         return defaultstring
-       end
        interval_array = [ [:weeks, 604800], [:days, 86400], [:hours, 3600], [:minutes, 60], [:seconds, 1] ]
        interval_array.each do |sub|
         if time_period >= sub[1] then
@@ -211,7 +215,7 @@ module Capistrano
           out_str += time_val.to_s + " #{name}"
         end
        end
-       if(out_str.blank?)
+       if(out_str.nil? or out_str.empty?)
          return defaultstring
        else
          return out_str

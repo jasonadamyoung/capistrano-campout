@@ -16,11 +16,11 @@ from two projects: [capistrano-mountaintop](https://github.com/technicalpickles/
 
 I created my own instead of forking either for the following reasons
 
-* I wanted to use Tinder (Capfire uses broach)
-* I wanted the necessary functionality built in instead of using additional gems (mountaintop depends on capistrano-campfire and capistrano-log_with_awesome)
+* I initially wanted to use Tinder (Capfire uses broach). I later went with Broach due to ActiveSupport (which Tinder requires) conflicts with Capistrano.
+* I wanted more customization with regard to messages than capfire provided.
+* I liked EngineYard's logger implementation much better than capistrano-log_with_awesome (which capistrano-mountaintop depends on) - and liked it better integrated into campout's gem itself.
 * I wanted configuration-file based settings that I can separate into shared (checked into git) and local (git ignored) files
 * I wanted room to expand for my team's needs for utilities for git and github inspection
-* Because I could.
 
 ## Installation
 
@@ -69,23 +69,7 @@ Otherwise, use the source, Luke.
 
 ## Known Limitations
 
-### Deploy:Cleanup task
-
-Capistrano::Campout requires [Tinder](https://github.com/collectiveidea/tinder) - which requires [ActiveSupport](https://github.com/rails/rails/tree/master/activesupport)
-
-Apparently, Capistrano's "deploy:cleanup" task breaks in some situations due to conflicts between Capistrano and ActiveSupport
-
-See:
-
-* [Issue #169](https://github.com/capistrano/capistrano/issues/169)
-* [Issue #170](https://github.com/capistrano/capistrano/issues/170)
-* [Pull Request #175](https://github.com/capistrano/capistrano/pull/175)
-
-Until that's fixed, you'll have to comment out any "deploy:cleanup" invocations 
-
-### Error checking
-
-There isn't much. And there's no tests. The latter might be a feature.
+There isn't much error checking on the campfire connection. And there's no tests. The latter might be a feature.
 
 ## Contributing
 

@@ -20,6 +20,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Capistrano::Campout::VERSION
   gem.add_dependency('capistrano', '>= 2.11')
-  gem.add_dependency('tinder', '>= 1.8')
+  gem.add_dependency('broach', '>= 0.2')
   gem.add_dependency('grit', '>= 2.4')
 end

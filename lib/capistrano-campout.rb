@@ -3,7 +3,7 @@
 # === LICENSE:
 # see LICENSE file
 require 'capistrano'
-require 'tinder'
+require 'broach'
 require 'grit'
 
 require 'capistrano-campout/logger'

@@ -2,6 +2,10 @@
 # Copyright (c) 2012 Jason Adam Young
 # === LICENSE:
 # see LICENSE file
+
+# TODO: clean this implementation up, not the biggest fan of what
+# I have here.
+
 module Capistrano
   module Campout
     class GitUtils
