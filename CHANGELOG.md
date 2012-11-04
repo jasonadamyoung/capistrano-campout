@@ -1,3 +1,7 @@
+## 1.1.3 (Nov 04, 2012)
+
+Point to new github home (moved to 'outfiedling' organization)
+
 ## 1.1.2 (Apr 10, 2012)
 
 We need to be in the glorious prescence of a capistrano instance to load capistrano things. Else rake tasks go boom.

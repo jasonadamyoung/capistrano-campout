@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
     are also supported.
   EOF
   gem.summary       = %q{Post messages and paste logs from a capistrano deployment to a campfire room}
-  gem.homepage      = %q{https://github.com/jasonadamyoung/capistrano-campout}
+  gem.homepage      = %q{https://github.com/outfielding/capistrano-campout}
   gem.license       = 'MIT'
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
